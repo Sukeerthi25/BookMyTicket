@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>My Bookings</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container */
+.container {
+    max-width: 950px;
+    margin-top: 40px;
+}
+
+/* Title */
+.page-title {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+/* Card */
+.ticket-card {
+    background: #111827;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
+.ticket-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Info rows */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.label {
+    color: #9ca3af;
+}
+
+/* Seats */
+.seat {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/* Empty */
+.empty {
+    text-align: center;
+    margin-top: 50px;
+    color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-title">🎟 My Bookings</div>
+
+    <!-- EMPTY STATE -->
+    <div th:if="${#lists.isEmpty(tickets)}" class="empty">
+        No bookings found 😔
+    </div>
+
+    <!-- TICKET CARD -->
+    <div th:each="ticket : ${tickets}" class="ticket-card">
+
+        <div class="info-row">
+            <div class="label">Movie</div>
+            <div th:text="${ticket.movieName}"></div>
+        </div>
+
+        <div class="info-row">
+            <div class="label">Theater</div>
+            <div th:text="${ticket.theaterName}"></div>
+        </div>
+
+        <div class="info-row">
+            <div class="label">Date</div>
+            <div th:text="${ticket.showDate}"></div>
+        </div>
+
+        <div class="info-row">
+            <div class="label">Time</div>
+            <div th:text="${ticket.showTiming}"></div>
+        </div>
+
+        <div class="info-row">
+            <div class="label">Seats</div>
+            <div>
+                <span th:each="seat : ${ticket.seatNumber}" 
+                      th:text="${seat}" 
+                      class="seat"></span>
+            </div>
+        </div>
+
+        <div class="info-row">
+            <div class="label">Tickets</div>
+            <div th:text="${ticket.ticketCount}"></div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
